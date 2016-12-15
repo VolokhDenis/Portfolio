@@ -1,0 +1,16 @@
+.portfolio-item{z-index: 10;
+}
+.portfolio-item:hover{
+    cursor: pointer;
+}
+
+.portfolio-loader
+{
+    cursor: pointer;
+    opacity: 0;
+    z-index: 0;
+    position: absolute;
+    background-color: #5e5e5e;
+
+}
+
