@@ -8,7 +8,6 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/custom.css">
-
 </head>
 <body>
 
@@ -17,15 +16,25 @@
 <div class="row-fluid">
     <h1>Portfolio</h1>
     <div class="container-fluid portfolio-container">
-        <div class="portfolio-loader"></div> <!--Here will be portfolio loaded-->
+        <div class="portfolio-loader">
+        <!--Начиная отсюда часть должна генериться в PHP, только после события onclick-->
+            <div class="row-fluid portfolioLoaded">
+                <div class="close"></div>
+                <div class="container">
+                      <button type="button" class="close">&times;</button><!-- Кнопка закрыть окно-->
+                </div>
+            </div>
+        <!-- До сюда -->    
+        </div> <!--Here will be portfolio loaded-->
+
         <div class="col-lg-2 portfolio-item" itemNum="1" id="portfolio_0" style="background-color: #2b542c; height: 200px;"></div>
         <div class="col-lg-2 portfolio-item" itemNum="2" id="portfolio_1" style="background-color:  indianred; height: 200px;"></div>
         <div class="col-lg-2 portfolio-item" itemNum="3" id="portfolio_2" style="background-color: blueviolet; height: 200px;"></div>
         <div class="col-lg-2 portfolio-item" itemNum="4" id="portfolio_3" style="background-color: greenyellow; height: 200px;"></div>
         <div class="col-lg-2 portfolio-item" itemNum="5" id="portfolio_4" style="background-color: darkorange; height: 200px;"></div>
         <div class="col-lg-2 portfolio-item" itemNum="6" id="portfolio_5" style="background-color: indigo; height: 200px;"></div>
-        <div class="col-lg-2 portfolio-item" itemNum="7" id="portfolio_6" style="background-color: indigo; height: 200px;"></div>
-        <div class="col-lg-2 portfolio-item" itemNum="7" id="portfolio_6" style="background-color: indigo; height: 200px;"></div>
+        <div class="col-lg-2 portfolio-item" itemNum="7" id="portfolio_6" style="background-color: red; height: 200px;"></div>
+        <div class="col-lg-2 portfolio-item" itemNum="8" id="portfolio_7" style="background-color: aqua; height: 200px;"></div>
     </div>
 
 

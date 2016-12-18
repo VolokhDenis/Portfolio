@@ -2,80 +2,72 @@
  * Created by denisvolokh on 12.11.16.
  */
 $(document).ready(function () {
+    portfolioOpen=1;
    //для начала постоянные переменные
     elementsperline = 6;
+    elementIndent = 15;
    //Нужно узнать ширину сетки и записать в глобальную переменную
-    fieldWidth= $('.portfolio-container').width()-30;
-
-    var ItemQty = $('.portfolio-item').length;
-    var ItemW= $('.portfolio-item').width()+30;
-    RowsQty = Math.ceil(ItemW*ItemQty/fieldWidth);
-    console.log(fieldWidth,ItemW, ItemQty, RowsQty);
-
+    fieldWidth= $('.portfolio-container').width(); //.portfolio-container обязательный класс
+    var ItemQty = $('.portfolio-item').length;//Узнаю количество блоков
+  
 });
 
-$(".portfolio-item").hover(function(){
-
-    var ItemW= $(this).width();
-    var ItemH= $(this).height();
-
-    var ItemNum = $(this).attr('ItemNum');
-    if(ItemNum*(ItemW+30)>fieldWidth){
-        //Длина строки:
-        var RowLen=(ItemW+30)*ItemNum;
-        var RowNum = Math.ceil(RowLen/(fieldWidth-30));
-        var a = (fieldWidth-30)*RowNum-RowLen;
-
-        var OpenPosX= (a);
-        var OpenPosY= (RowNum-1)*ItemH;
+$(".portfolio-item").hover(function(){ //Событие наведение на элемент
+//Первым делом надо проверить не развернута ли какая то другая галлерея
+    if(portfolioOpen!=1){
+        console.log("close portfolio before", portfolioOpen);
     }else{
-    var OpenPosX= (ItemW+30)*(ItemNum-1);
-    var OpenPosY= 0;
-    }
+        console.log("OK");
+    //$("div.content").offset() возвратит координаты первого div-элемента с классом content, относительно начала страницы.
+    //$(".content").offset({top:30, left:100})    устанавливает координаты относительно начала страницы, равные (100, 30) для всех элементов с классом content.
 
-    console.log(ItemH, ItemW, ItemNum, OpenPosX);
+    var ItemPos = $(this).offset(); 
+    console.log(ItemPos);
+    var ItemW= $(this).width();//element width
+    var ItemH= $(this).height();//element height
+    console.log(ItemH, ItemW, ItemPos.left, ItemPos.top);
 
-    $(".portfolio-loader").css({height: ItemH, width: ItemW+30, left : OpenPosX+15, top: OpenPosY});
 
+    $(".portfolio-loader").css({height: ItemH, width: ItemW+elementIndent*2, left : ItemPos.left , top: ItemPos.top});
     $(".portfolio-loader").css({
         zIndex : "100"
     });
 
     $(".portfolio-loader").stop().animate({opacity : "0.7"});
 
+    }
 
-});
-
-$(".portfolio-loader").mouseleave(function(){
-
-    $(this).stop().animate({opacity : "0"});
-    $(this).css({height: 0, width: 0, left : 0});
-    $(this).css({
-        zIndex : "0"
-    });
 });
 
 
 $(".portfolio-loader").click(function(){
 //Let's check position of clicked item and put it into value
+    var ItemId = $(this).attr('id');
+    var ItemPos = $(this).offset(); 
     var ItemW= $(this).width();
-    //var ItemPad=$(this).css("padding-left");
     var ItemH= $(this).height();
     var ItemNum = $(this).attr('ItemNum');
-    var OpenPos= (ItemW)*(ItemNum-1);
-    console.log(ItemH, ItemW, ItemNum, OpenPos);
+   
+
+    console.log(ItemH, ItemW, ItemNum, ItemPos);
 
 
-    //alert(ItemNum);
-    $(".portfolio-loader").css({height: ItemH, left : OpenPos});
+    $(".portfolio-loader").css({height: ItemH, left : ItemPos.left});
     $(".portfolio-loader").css({
         zIndex : "100"
     });
     $(".portfolio-loader").animate({opacity : "1"});
-    $(".portfolio-loader").animate({left : "0"},500,'easeInBack',
-        $(".portfolio-loader").animate({ width: "100%" },500,'easeInOutBack')
+    $(".portfolio-loader").animate({width: fieldWidth},300,'easeInOutBack',
+    $(".portfolio-loader").animate({left : elementIndent },200,'easeInBack')
     );
-
+    portfolioOpen = 1;
 });
 
+$("button.close").click(function(){
 
+
+    $(".portfolio-loader").animate({width: 0},500,'easeInOutBack',
+    $(".portfolio-loader").animate({opacity : "1"})
+    );
+    portfolioOpen =portfolioOpen - 1;
+});
